@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 interface ICircleprops {
@@ -13,10 +14,11 @@ const Container = styled.div<ICircleprops>`
     border : 4px solid ${(props) => props.borderColor ?? "pink"}
 `;
 
-function Circle({bgColor, borderColor, text = "기본값이야"}:ICircleprops){
+function Circle({bgColor, borderColor}:ICircleprops){
+    const [counter, setCounter] = useState(1);
     return (
         <div>
-            <Container bgColor={bgColor} borderColor={borderColor}>{text}</Container>
+            <Container bgColor={bgColor} borderColor={borderColor}/>
         </div>
     )
 }
