@@ -87,7 +87,10 @@ function Coins(){
             {loading ? <Loader>...loading</Loader> : (<CoinsList>
                 {coins.map((coin) => (
                     <Coin key={coin.id}>
-                        <Link to={`/${coin.id}`}>
+                        <Link to={{
+                            pathname: `/${coin.id}`,
+                            state: { name: coin.name }
+                        }}>
                             <Img 
                                 alt="coinID"
                                 src={`https://cryptoicon-api.pages.dev/api/icon/${coin.symbol.toLocaleLowerCase()}`}
