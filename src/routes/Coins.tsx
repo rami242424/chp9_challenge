@@ -27,7 +27,8 @@ const Coin = styled.li`
     a {
         padding : 20px;
         transition: color 0.2s ease-in;
-        display : block;
+        display : flex;
+        align-items: center;
     }
     &:hover {
         a {
@@ -35,6 +36,7 @@ const Coin = styled.li`
         }
     }
 `;
+
 
 const Title = styled.div`
     font-size: 48px;
@@ -44,6 +46,12 @@ const Title = styled.div`
 const Loader = styled.span`
     text-align: center;
     display: block;
+`;
+
+const Img = styled.img`
+    width: 35px;
+    height: 35px;
+    margin-right : 10px;
 `;
 
 interface CoinInterface {
@@ -66,7 +74,7 @@ function Coins(){
             const json = await response.json();
             //console.log(json);
             setCoins(json.slice(0, 50));
-            //console.log(coins);
+            console.log(coins);
             setLoading(false);
         })();
     }, []);
@@ -76,13 +84,19 @@ function Coins(){
             <Header>
                 <Title>코인</Title>
             </Header>
-            {loading ? <Loader>...loading</Loader> : <CoinsList>
+            {loading ? <Loader>...loading</Loader> : (<CoinsList>
                 {coins.map((coin) => (
                     <Coin key={coin.id}>
-                        <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+                        <Link to={`/${coin.id}`}>
+                            <Img 
+                                alt="coinID"
+                                src={`https://cryptoicon-api.pages.dev/api/icon/${coin.symbol.toLocaleLowerCase()}`}
+                                />
+                            {coin.name} &rarr;
+                        </Link>
                     </Coin>
                 ))}
-            </CoinsList>}
+            </CoinsList>)}
         </Container>
     );
 }
