@@ -74,7 +74,7 @@ function Coins(){
             const json = await response.json();
             //console.log(json);
             setCoins(json.slice(0, 50));
-            console.log(coins);
+            //console.log(coins);
             setLoading(false);
         })();
     }, []);

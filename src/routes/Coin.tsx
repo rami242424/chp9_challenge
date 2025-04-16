@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -33,6 +33,7 @@ interface RouteState {
     name: string,
 }
 
+
 function Coin () {
     // 방법1
     // const params = useParams<ICoinProps>();
@@ -46,6 +47,27 @@ function Coin () {
     //console.log(location);
     // 방법2
     const { state } = useLocation<RouteState>();
+    const [info, setInfo] = useState({});
+    const [priceInfo, setPriceInfo] = useState({});
+
+    useEffect(() => {
+        (async() => {
+            // const response = await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`);
+            // const json = await response.json();
+
+            const infoData = await (await fetch (`https://api.coinpaprika.com/v1/coins/${coinId}`)).json()
+            //console.log(infoData, "infoData값");
+            setInfo(infoData);
+
+            const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
+            setPriceInfo(priceData);
+            
+
+
+
+
+        })(); // 즉시실행
+    }, []);
 
     return (
         <Container>
