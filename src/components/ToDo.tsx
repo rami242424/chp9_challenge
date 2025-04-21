@@ -30,11 +30,15 @@ function ToDo({ text, category, id } : IToDo){
         setToDos((oldToDos) => {
             const targetIndex = oldToDos.findIndex(toDo => toDo.id === id);
             //console.log(targetIndex, "targetIndex 값");
-            const oldToDo = oldToDos[targetIndex];
-            const newToDo = { text, id, category:name };
+            //const oldToDo = oldToDos[targetIndex];
+            const newToDo = { text, id, category:name as any };
             //console.log(oldToDo, "oldToDo", newToDo, "newToDo")
-            console.log("replace ", targetIndex, "w/", newToDo.category)
-            return oldToDos;
+            //console.log("replace ", targetIndex, "w/", newToDo.category)
+            return [
+                ...oldToDos.slice(0, targetIndex), 
+                newToDo, 
+                ...oldToDos.slice(targetIndex + 1)
+            ];
         })
     }
     return (
