@@ -5,6 +5,8 @@ import { IToDo, toDoState } from "../atoms";
 
 
 function ToDo({ text, category, id } : IToDo){
+    const setToDos = useSetRecoilState(toDoState);
+
     // 방법1
     /* const onClick = (newCategory: IToDo["category"]) => {
         console.log("i wanna go to ", newCategory);
@@ -22,8 +24,19 @@ function ToDo({ text, category, id } : IToDo){
     const onClick = (event:React.MouseEvent<HTMLButtonElement>) => {
         //console.log("i wanna go ", event.currentTarget.name);
         const { currentTarget : {name}} = event;
+        
+        // category 변경하기
+        // step1 : target의 현재 경로 찾기
+        setToDos((oldToDos) => {
+            const targetIndex = oldToDos.findIndex(toDo => toDo.id === id);
+            //console.log(targetIndex, "targetIndex 값");
+            const oldToDo = oldToDos[targetIndex];
+            const newToDo = { text, id, category:name };
+            //console.log(oldToDo, "oldToDo", newToDo, "newToDo")
+            console.log("replace ", targetIndex, "w/", newToDo.category)
+            return oldToDos;
+        })
     }
-    const setToDos = useSetRecoilState(toDoState);
     return (
         <li>
             <span>{text}</span>

@@ -5,6 +5,7 @@ import ToDo from "./ToDo";
 
 function ToDoList(){
     const toDos = useRecoilValue(toDoState);
+    console.log(toDos, "ToDoList 의 toDos");
 
     return (
         <div>
