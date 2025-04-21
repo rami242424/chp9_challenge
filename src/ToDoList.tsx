@@ -36,13 +36,33 @@ export default ToDoList; */
 function ToDoList(){
     const { register, watch } = useForm();
     // console.log(register("toDo"));
-    console.log(watch);
+    console.log(watch());
     return (
         <div>
             <form>
                 <input 
-                    {...register("toDo")} 
-                    placeholder="Write a to do" 
+                    {...register("Email")} 
+                    placeholder="Write a Email" 
+                />
+                <input 
+                    {...register("Firstname")} 
+                    placeholder="Write a Firstname" 
+                />
+                <input 
+                    {...register("lastname")} 
+                    placeholder="Write a lastname" 
+                />
+                <input 
+                    {...register("ID")} 
+                    placeholder="Write a ID" 
+                />
+                <input 
+                    {...register("password1")} 
+                    placeholder="Write a password1" 
+                />
+                <input 
+                    {...register("password2")} 
+                    placeholder="Write a password2" 
                 />
                 <button>Add</button>
             </form>
