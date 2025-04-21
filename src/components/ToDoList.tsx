@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState  } from "recoil";
-import { categoryState, toDoSelector, toDoState } from "../atoms";
+import { AllCategories, categoryState, toDoSelector, toDoState } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
@@ -18,14 +18,15 @@ function ToDoList(){
         setCat(event.currentTarget.value as any);
     };
     //console.log(cat);
+    console.log(todoDoingDone, "todoDoingDone");
     return (
         <div>
             <h1>My To Do List</h1>
             <hr/>
             <select value={cat} onInput={onInput}>
-                <option value="TO_DO">TO DO</option>
-                <option value="DOING">DOING</option>
-                <option value="DONE">DONE</option>
+                <option value={AllCategories.TO_DO}>TO DO</option>
+                <option value={AllCategories.DOING}>DOING</option>
+                <option value={AllCategories.DONE}>DONE</option>
             </select>
             <CreateToDo />
 
