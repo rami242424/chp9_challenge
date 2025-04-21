@@ -15,7 +15,7 @@ function ToDoList(){
     const [cat, setCat] = useRecoilState(categoryState);
     const onInput = (event:React.FormEvent<HTMLSelectElement>) => {
         //console.log(event.currentTarget.value , "뭐눌렀냐");
-        setCat(event.currentTarget.value);
+        setCat(event.currentTarget.value as any);
     };
     //console.log(cat);
     return (

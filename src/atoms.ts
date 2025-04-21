@@ -1,12 +1,14 @@
 import { atom, selector } from "recoil";
 
+export type AllCategories = "TO_DO" | "DOING" | "DONE";
+
 export interface IToDo {
     text : string;
     id : number;
-    category : "TO_DO" | "DOING" | "DONE";
+    category : AllCategories;
 }
 
-export const categoryState = atom({
+export const categoryState = atom<AllCategories>({
     key: "category",
     default: "TO_DO",
 })
@@ -20,7 +22,7 @@ export const toDoState = atom<IToDo[]>({
 export const toDoSelector = selector({
     key: "toDoSelector",
     get: ({get}) => {
-        const toDoss = get(toDoState);
+        const toDoss = get(toDoState); // list 전체 내용
         const catss = get(categoryState);
 
         // 방법1
