@@ -41,17 +41,24 @@ interface Iform {
     ID : string;
     password1 : string;
     password2 : string;
+    extraError?: string;
 }
 
 function ToDoList(){
-    const { register, watch, handleSubmit, formState: {errors} } = useForm<Iform>({
+    const { register, watch, handleSubmit, formState: {errors} , setError } = useForm<Iform>({
         defaultValues: {
             Email : "@naver.com"
         }
     });
-    const onValid = (data:any) => {
-        console.log(data);
+    const onValid = (data:Iform) => {
+        if(data.password1 !== data.password2){
+            // alert("입력하신 비밀번호가 다릅니다.")
+            setError("password2", {message: "password is different!!"}, {shouldFocus: true});
+        }
+        // 전체에러
+        // setError("extraError", {message: "Server is Offline, check your wifi"})
     }
+    //console.log(data);
     // console.log(register("toDo"));
     // console.log(watch());
     console.log(errors);
@@ -70,10 +77,23 @@ function ToDoList(){
                 />
                 <span>{ errors?.Email?.message as string}</span>
                 <input 
-                    {...register("Firstname", {required : true})}
+                    {...register("Firstname", {
+                        required : true,
+                        // 방법1: 무조건 통과X
+                        // validate: (value) => false,
+                        // 방법1 : rami를 포함하지 않으면 통과
+                        // validate: (value) => !value.includes("rami"),
+                        // 방법3 : 위와 같음 but 삼항연산자로 표현
+                        // validate: (value) => value.includes("rami") ? "no rami is allowed" : true,
+                        // 방법4 : 여러개의 조건
+                        validate : {
+                            noRami : (value) => value.includes("rami") ? "no rami is allowed" : true,
+                            noRame : (value) => value.includes("rame") ? "no rame is allowed" : true,
+                        }
+                    })}
                     placeholder="Write a Firstname" 
                 />
-               
+                <span>{ errors?.Firstname?.message as string}</span>
                 <input 
                     {...register("lastname", {required : true})} 
                     placeholder="Write a lastname" 
@@ -109,6 +129,9 @@ function ToDoList(){
                 />
                  <span>{ errors?.password2?.message as string}</span>
                 <button>Add</button>
+                {/* <span>
+                    {errors?.extraError?.message}
+                </span> */}
             </form>
         </div>
     );
