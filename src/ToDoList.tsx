@@ -34,34 +34,46 @@ import {useForm} from "react-hook-form";
 export default ToDoList; */
 
 function ToDoList(){
-    const { register, watch } = useForm();
+    const { register, watch, handleSubmit, formState } = useForm();
+    const onValid = (data:any) => {
+        console.log(data);
+    }
     // console.log(register("toDo"));
-    console.log(watch());
+    //console.log(watch());
+    console.log(formState.errors);
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit(onValid)}>
                 <input 
-                    {...register("Email")} 
+                    {...register("Email", {required : true})} 
                     placeholder="Write a Email" 
                 />
                 <input 
-                    {...register("Firstname")} 
+                    {...register("Firstname", {required : true})}
                     placeholder="Write a Firstname" 
                 />
                 <input 
-                    {...register("lastname")} 
+                    {...register("lastname", {required : true})} 
                     placeholder="Write a lastname" 
                 />
                 <input 
-                    {...register("ID")} 
+                    {...register("ID", {
+                        required: "your ID is required!", minLength: 5
+                    })} 
                     placeholder="Write a ID" 
                 />
                 <input 
-                    {...register("password1")} 
+                    {...register("password1", {
+                        required : true, 
+                        minLength: {
+                            value : 5,
+                            message: "your password1 is too short"
+                        }
+                    })} 
                     placeholder="Write a password1" 
                 />
                 <input 
-                    {...register("password2")} 
+                    {...register("password2", {required : true, minLength: 9})} 
                     placeholder="Write a password2" 
                 />
                 <button>Add</button>
