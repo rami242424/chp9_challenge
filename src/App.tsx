@@ -27,9 +27,6 @@ function App() {
   return (
     <Wrapper>
       <Box variants={myVars} initial="start" animate="end"
-        // transition={{ type: "spring", delay: 0.5 }}
-        // initial={{ scale: 0 }}
-        // animate={{ scale: 1, rotateZ: 360 }}
       />
     </Wrapper>
   );
