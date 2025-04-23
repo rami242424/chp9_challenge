@@ -14,74 +14,37 @@ const Wrapper = styled(motion.div)`
 
 const Box = styled(motion.div)`
   width:400px;
-  height: 200px;
+  height: 400px;
   background-color: rgb(255, 255, 255, 1);
   border-radius: 40px;
-  position: absolute;
-  top: 100px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
+  /* justify-content: flex-start;
+  align-items: flex-start; */
   box-shadow: 0 2px 3px rgb(0, 0, 0, 0.1), 0 10px 20px rgb(0, 0, 0, 0.06);
 `;
-const boxVars = {
-  entry : (isBack:boolean) => ({
-    x: isBack ? -500 : 500,
-    opacity: 0,
-    scale: 0,
-  }),
-  center: {
-    x: 0,
-    opacity:1,
-    scale: 1,
-    transition:{
-      duration: 1,
-    }
-  },
-  exit: (isBack:boolean) => ({
-    x: isBack? 500 : -500,
-    opacity: 0,
-    scale: 0,
-    transition:{
-      duration: 0.5,
-    },
-    rotateX: 180
-  })
 
-}
+const Circle = styled(motion.div)`
+  background-color: #00a5ff;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  box-shadow: 0 2px 3px rgb(0, 0, 0, 0.1), 0 10px 20px rgb(0, 0, 0, 0.06);
+`;
+
 
 function App() {
-  const [visible, setVisible] = useState(1);
-  const [back, setBack] = useState(false);
-  const nextPlz = () => {
-    setBack(false);
-    setVisible( (prev) => prev === 10 ? 10 : prev+1 )
+  const [click, setClicked] = useState(false);
+  const toggleClick = () => {
+    setClicked((prev) => !prev);
   }
-  const prevPlz = () => { 
-    setBack(true);
-    setVisible( (prev) => prev === 1 ? 1 : prev-1 )
-  }
-  
   return (
-    <Wrapper>
-      <AnimatePresence 
-        exitBeforeEnter // 완전히 exit하면 entry
-        custom={back}
-      >
-        <Box 
-          custom={back}
-          variants={boxVars} 
-          initial="entry" 
-          animate="center" 
-          exit="exit" 
-          key={visible}
-        > 
-          {visible} 
-        </Box>
-      </AnimatePresence> 
-      <button onClick={nextPlz}>Next</button>
-      <button onClick={prevPlz}>Prev</button>
+    <Wrapper onClick={toggleClick}>
+      <Box style={{ 
+          justifyContent: click ? "center" : "flex-start",
+          alignItems: click? "center" : "flex-start"
+        }}>
+        <Circle layout/>
+      </Box>
     </Wrapper>
   );
 }
