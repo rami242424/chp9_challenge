@@ -1,5 +1,7 @@
+
+import { motion, useMotionValue, useTransform,  } from "framer-motion";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { motion,  } from "framer-motion";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -38,17 +40,17 @@ function App() {
   const x = useMotionValue(0);
 
   //const potato = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
-  const scale = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
+  const scale = useTransform(x, [-800, 800], [-360, 360 ]);
   
   useEffect(() => {
     //x.onChange(() => console.log(x.get()));
     //potato.onChange(() => console.log(potato.get()));
-    scale.onChanege(()=> console.log(scale.get()));
+    scale.onChange(()=> console.log(scale.get()));
   }, [x]);
 
   return (
     <Wrapper>
-      <Box style={{x , scale: potato, }}
+      <Box style={{x , rotateZ }}
         drag="x"
         dragSnapToOrigin
       />
