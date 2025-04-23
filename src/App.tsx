@@ -34,14 +34,21 @@ const boxVariants = {
 };
 
 function App() {
+  // x : 드래그 할때마다 새로 설정되는 값값
   const x = useMotionValue(0);
+
+  //const potato = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
+  const scale = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
+  
   useEffect(() => {
-    x.onChange(() => console.log(x.get()));
+    //x.onChange(() => console.log(x.get()));
+    //potato.onChange(() => console.log(potato.get()));
+    scale.onChanege(()=> console.log(scale.get()));
   }, [x]);
 
   return (
     <Wrapper>
-      <Box style={{x}}
+      <Box style={{x , scale: potato, }}
         drag="x"
         dragSnapToOrigin
       />
