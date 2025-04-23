@@ -1,0 +1,8 @@
+
+> reactmasterclass20250412@0.1.0 start
+> set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start
+
+these parameters are deprecated, see docs for addKeyword
+these parameters are deprecated, see docs for addKeyword
+these parameters are deprecated, see docs for addKeyword
+Cannot read properties of undefined (reading 'date')
