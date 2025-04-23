@@ -65,7 +65,10 @@ function App() {
   
   return (
     <Wrapper>
-      <AnimatePresence custom={back}>
+      <AnimatePresence 
+        exitBeforeEnter // 완전히 exit하면 entry
+        custom={back}
+      >
         <Box 
           custom={back}
           variants={boxVars} 
