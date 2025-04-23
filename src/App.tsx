@@ -40,25 +40,28 @@ const Overlay = styled(motion.div)`
 `;
 
 function App() {
-  const [click, setClick] = useState(false);
-  const toggle = () => {
-    setClick((prev)=> !prev);
-  }
+  const [id, setId] = useState<null | string>(null);
+  console.log(id);
   return (
-    <Wrapper onClick={toggle}>
+    <Wrapper>
       <Grid>
-        <Box layoutId="hello"/>
-        <Box/>
-        <Box/>
-        <Box/>
+        {["1","2","3","4"].map((n) => (
+          <Box 
+            key={n} 
+            layoutId={n} 
+            onClick={() => setId(n)}
+          />
+        ))}
       </Grid>
-      <AnimatePresence>{ click ? (
+      <AnimatePresence>
+        { id ? (
         <Overlay 
+          onClick={() => setId(null)}
           initial={{opacity: 0}} 
           animate={{opacity: 1}} 
           exit={{opacity: 0}}
         >
-          <Box layoutId="hello" style={{ width: 400, height: 200}}/>
+          <Box layoutId="id" style={{ width: 400, height: 200}}/>
         </Overlay>
       ) : null }
       </AnimatePresence>
