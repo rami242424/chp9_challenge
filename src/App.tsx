@@ -54,6 +54,7 @@ const boxVars = {
 function App() {
   const [visible, setVisible] = useState(1);
   const nextPlz = () => setVisible( (prev) => prev === 10 ? 10 : prev+1 );
+  const prevPlz = () => setVisible( (prev) => prev === 1 ? 1 : prev-1 );
   
   return (
     <Wrapper>
@@ -63,6 +64,7 @@ function App() {
         ))}
       </AnimatePresence> 
       <button onClick={nextPlz}>Next</button>
+      <button onClick={prevPlz}>Prev</button>
     </Wrapper>
   );
 }
