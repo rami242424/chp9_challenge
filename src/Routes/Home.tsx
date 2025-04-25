@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { makeImgPath } from "../utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 
 const Wrapper = styled.div`
@@ -128,10 +129,14 @@ const offset = 6;
 
 
 function Home(){
+    const history = useHistory();
     const { data , isLoading } = useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getMovies);
     //console.log(data, isLoading);
     const [index, setIndex] = useState(0);
     const [leaving, setLeaving] = useState(false);
+    const onBoxClicked = (movieId:number) => {
+        history.push(`/movies/${movieId}`);
+    }
 
     const increasingIdx = () => {
         if( data ){
@@ -169,6 +174,7 @@ function Home(){
                                     .slice(offset*index, offset*index+offset)
                                     .map((movie) => (
                                         <Box 
+                                            onClick={() => onBoxClicked(movie.id)}
                                             key={movie.id}
                                             variants = {boxVars}
                                             whileHover="hover"
