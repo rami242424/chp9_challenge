@@ -142,8 +142,33 @@ const BigMovie = styled(motion.div)`
     left: 0;
     right: 0;
     margin: 0 auto;
+    border-radius: 15px;
+    overflow:hidden;
+    background-color : ${(props) => props.theme.black.lighter};
 `;
 
+const BigCover = styled.div`
+    width: 100%;
+    height: 40vh; // 니코는 400px;
+    background-size: cover;
+    background-position: center center;
+
+`;
+const BigTitle = styled.h3`
+    color: ${(props)=> props.theme.white.lighter};
+    padding: 10px;
+    font-size: 20px;
+    position: relative;
+    top: -40px;
+`;
+
+const BigOverview = styled.p`
+    color: ${(props)=> props.theme.white.lighter};
+    padding: 10px;
+    font-size: 13px;
+    position: relative;
+    top: -40px;
+`;
 
 const offset = 6;
 
@@ -174,6 +199,8 @@ function Home(){
     }
     const toggleLeaving = () => setLeaving((prev) => !prev);
 
+    const clickedMovie = bigMovieMatch?.params.movieId && data?.results.find((movie) => movie.id === +bigMovieMatch?.params.movieId)
+    console.log(clickedMovie);
     return (
         <Wrapper>
             {isLoading ? (
@@ -223,7 +250,17 @@ function Home(){
                                 <BigMovie
                                     layoutId={bigMovieMatch.params.movieId}
                                     style={{ top: scrollY.get() + 100}}
-                                />
+                                >
+                                    {clickedMovie && <>
+                                        <BigCover 
+                                            style={{backgroundImage: 
+                                                `linear-gradient(to top, #332d2d, transparent),
+                                                url(${makeImgPath(clickedMovie.backdrop_path, "w500")})`}}
+                                        />
+                                        <BigTitle>{clickedMovie.title}</BigTitle>
+                                        <BigOverview>{clickedMovie.overview}</BigOverview>
+                                    </> }
+                                </BigMovie>
                             </>
                         ) : null}
                     </AnimatePresence>
