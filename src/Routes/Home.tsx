@@ -132,8 +132,17 @@ const Overlay = styled(motion.div)`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     opacity:0;
+
 `;
 
+const BigMovie = styled(motion.div)`
+    position: absolute;
+    width: 40vw;
+    height: 80vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+`;
 
 
 const offset = 6;
@@ -211,18 +220,9 @@ function Home(){
                         {bigMovieMatch ? (
                             <>
                                 <Overlay onClick={onOverlayClick} animate={{opacity: 1}} exit={{opacity: 0}}/>
-                                <motion.div
+                                <BigMovie
                                     layoutId={bigMovieMatch.params.movieId}
-                                    style={{
-                                        position: "absolute",
-                                        width: "40vw",
-                                        height: "80vh",
-                                        backgroundColor: "red",
-                                        top: scrollY,
-                                        left: 0,
-                                        right: 0,
-                                        margin: "0 auto",
-                                    }}
+                                    style={{ top: scrollY.get() + 100}}
                                 />
                             </>
                         ) : null}
