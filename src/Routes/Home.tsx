@@ -75,9 +75,15 @@ function Home(){
     const { data , isLoading } = useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getMovies);
     //console.log(data, isLoading);
     const [index, setIndex] = useState(0);
+    const [leaving, setLeaving] = useState(false);
+
     const increasingIdx = () => {
+        if (leaving) return; // slider가 돌아가는 중이면 동작x
+        toggleLeaving();
         setIndex((prev) => prev + 1);
     }
+    const toggleLeaving = () => setLeaving((prev) => !prev);
+
     return (
         <Wrapper>
             {isLoading ? (
@@ -89,12 +95,12 @@ function Home(){
                         <Overview>{data?.results[0].overview}</Overview>
                     </Banner>
                     <Slider>
-                        <AnimatePresence>
+                        <AnimatePresence onExitComplete={toggleLeaving}>
                             <Row 
                                 key={index} 
                                 variants={rowVars} initial="hidden" animate="visible" 
                                 exit="exit"
-                                transition={{ type: "tween", duration : 5 }}
+                                transition={{ type: "tween", duration : 1 }}
                             >
                                 {[1,2,3,4,5,6].map((i) => <Box key={i}>{i}</Box>)}
                             </Row>
