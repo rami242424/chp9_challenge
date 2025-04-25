@@ -125,9 +125,17 @@ const InfoVars = {
     }
 }
 
+const Overlay = styled(motion.div)`
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+`;
+
+
+
 const offset = 6;
-
-
 
 function Home(){
     const history = useHistory();
@@ -139,6 +147,10 @@ function Home(){
     const [leaving, setLeaving] = useState(false);
     const onBoxClicked = (movieId:number) => {
         history.push(`/movies/${movieId}`);
+    }
+
+    const onOverlayClick = () => {
+        history.push("/");
     }
 
     const increasingIdx = () => {
@@ -196,19 +208,22 @@ function Home(){
                     </Slider>
                     <AnimatePresence>
                         {bigMovieMatch ? (
-                        <motion.div
-                            layoutId={bigMovieMatch.params.movieId}
-                            style={{
-                            position: "absolute",
-                            width: "40vw",
-                            height: "80vh",
-                            backgroundColor: "red",
-                            top: 50,
-                            left: 0,
-                            right: 0,
-                            margin: "0 auto",
-                            }}
-                        />
+                            <>
+                                <Overlay onClick={onOverlayClick} />
+                                <motion.div
+                                    layoutId={bigMovieMatch.params.movieId}
+                                    style={{
+                                        position: "absolute",
+                                        width: "40vw",
+                                        height: "80vh",
+                                        backgroundColor: "red",
+                                        top: 50,
+                                        left: 0,
+                                        right: 0,
+                                        margin: "0 auto",
+                                    }}
+                                />
+                            </>
                         ) : null}
                     </AnimatePresence>
                 </>
