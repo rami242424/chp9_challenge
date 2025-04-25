@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {motion} from "framer-motion";
+import {motion, useAnimation} from "framer-motion";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useState } from "react";
 
@@ -105,7 +105,24 @@ function Header(){
     const [searchOpen, setSearchOpen] = useState(false);
     const homeMatch = useRouteMatch("/");
     const tvMatch = useRouteMatch("/tv");
-    const toggleSearch = () => setSearchOpen((prev)=> !prev);
+    const inputAnimation = useAnimation();
+
+    //animate={{ scaleX: searchOpen ? 1 : 0}} 
+    //아래 코드는 수십개의 애니메이션들을 동시에 실행시키고 싶을 때
+    const toggleSearch = () => {
+        if(searchOpen){
+            // close animation
+            inputAnimation.start({
+                scaleX: 0,
+            })
+        } else {
+            // open animation
+            inputAnimation.start({
+                scaleX: 1,
+            })
+        }   
+        setSearchOpen((prev)=> !prev);
+    }
     
     return (
         <Nav>
@@ -156,8 +173,10 @@ function Header(){
                     </motion.svg>
                     <Input 
                         initial={{ scaleX : 0 }}
+                        animate={inputAnimation}
                         transition={{ type : "linear"}}
-                        animate={{ scaleX: searchOpen ? 1 : 0}} placeholder="Search for Movie or Tv shows.." 
+                        //animate={{ scaleX: searchOpen ? 1 : 0}} 
+                        placeholder="Search for Movie or Tv shows.." 
                     />
                 </Search>
             </Col>
