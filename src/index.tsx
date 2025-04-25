@@ -65,6 +65,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   color:black;
   line-height: 1.2;
+  height: 100vw;
   
 }
 a {
