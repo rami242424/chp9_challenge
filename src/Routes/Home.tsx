@@ -67,6 +67,20 @@ const Box = styled(motion.div)<{bgPhoto:string}>`
     }
 `;
 
+const Info = styled(motion.div)`
+    padding : 10px;
+    background-color: ${(props) => props.theme.black.lighter};
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    opacity: 0;
+    h4 {
+        text-align: center;
+        font-size: 18px;
+    }
+    
+`;
+
 const rowVars = {
     hidden: {
         x: window.outerWidth - 5,
@@ -78,8 +92,6 @@ const rowVars = {
         x: -window.outerWidth + 5,
     }
 };
-
-const offset = 6;
 
 const boxVars = {
     normal: {
@@ -97,6 +109,23 @@ const boxVars = {
         },
     },
 }
+
+const InfoVars = {
+    hover : {
+        opacity: 1,
+        transition: {
+            delay: 0.5,
+            duration: 0.3,
+            transition: {
+                type: "tween"
+            }
+        },
+    }
+}
+
+const offset = 6;
+
+
 
 function Home(){
     const { data , isLoading } = useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getMovies);
@@ -140,14 +169,17 @@ function Home(){
                                     .slice(offset*index, offset*index+offset)
                                     .map((movie) => (
                                         <Box 
-                                            key={movie.id} 
-                                            bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
+                                            key={movie.id}
                                             variants = {boxVars}
                                             whileHover="hover"
                                             initial = "normal"
                                             transition={{ type: "tween"}}
-                                        
-                                                                                                                        />
+                                            bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
+                                        >
+                                            <Info variants={InfoVars}>
+                                                <h4>{movie.title}</h4>
+                                            </Info>
+                                        </Box>
                                     ))}
                             </Row>
                         </AnimatePresence>
